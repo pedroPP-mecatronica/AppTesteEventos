@@ -22,10 +22,11 @@ class EventosViewModel() : ViewModel() {
     val eventos: LiveData<ViewStates> = _eventos
 
     fun buscarEventos() {
+        _eventos.value = ViewStates.Carregando
         try {
-            _eventos.value = ViewStates.Carregando
             viewModelScope.launch {
-                val resposta = withContext(Dispatchers.Default) { useCase.buscarEventos() }
+
+                val resposta:ResultUseCase = withContext(Dispatchers.Default) { useCase.buscarEventos() }
 
                 val evento = when (resposta) {
                     is ResultUseCase.Model<*> -> {
@@ -36,7 +37,7 @@ class EventosViewModel() : ViewModel() {
                 }
                 _eventos.value = evento
             }
-        } catch (exp: Exception) {
+        } catch (exp: Throwable) {
             _eventos.value = ViewStates.Error(exp)
         }
     }

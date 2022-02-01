@@ -13,7 +13,7 @@ class EventosRepositorioRemoto {
      suspend fun buscarEventos(): ResultRequired<List<EventosModelResponse>> {
         val result = remote.buscarEventos()
          return if(result.isSuccessful && !result.body().isNullOrEmpty()){
-             ResultRequired.Success(result.body()!!)
+             ResultRequired.Success(result.body().orEmpty())
          }else if(result.body() == null){
              ResultRequired.Warning(result.message().toString())
          }else {

@@ -71,7 +71,7 @@ class EventosFragment : Fragment() {
                     adapter.addItem(eventos)
                 }
                 is ViewStates.Error -> {
-                    Toast.makeText(requireContext(), state.erro.toString(), Toast.LENGTH_LONG)
+                    Toast.makeText(requireContext(), "Algo deu errado ao buscar eventos", Toast.LENGTH_LONG)
                         .show()
                 }
                 is ViewStates.Aviso -> {
