@@ -17,9 +17,9 @@ class EventosRepositorioUseCase() {
                 is ResultRequired.Warning -> {
                     ResultUseCase.Aviso(resultado.aviso)
                 }
-                is ResultRequired.Error -> throw Exception()
+                is ResultRequired.Error -> throw Exception(resultado.throwable)
             }
-        } catch (exp: Exception) {
+        } catch (exp: Throwable) {
             ResultUseCase.Error(exp)
         }
 
@@ -27,13 +27,13 @@ class EventosRepositorioUseCase() {
     suspend fun buscarDetalhes(id: Long): ResultUseCase =
         try {
             when (val resultado = repositorioRemoto.buscarDetalhes(id)) {
-                is ResultRequired.Success -> {
+                is ResultRequired.Success<*> -> {
                     ResultUseCase.Model(resultado.modelo)
                 }
                 is ResultRequired.Warning -> {
                     ResultUseCase.Aviso(resultado.aviso)
                 }
-                is ResultRequired.Error -> throw Exception()
+                is ResultRequired.Error -> throw Exception(resultado.throwable)
             }
         } catch (exp: Exception) {
             ResultUseCase.Error(exp)
@@ -49,7 +49,7 @@ class EventosRepositorioUseCase() {
                 is ResultRequired.Warning -> {
                     ResultUseCase.Aviso(resultado.aviso)
                 }
-                is ResultRequired.Error -> throw Exception()
+                is ResultRequired.Error -> throw Exception(resultado.throwable)
             }
         } catch (exp: Exception) {
             ResultUseCase.Error(exp)

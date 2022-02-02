@@ -29,11 +29,11 @@ class DetalhesEventosViewModel : ViewModel() {
                 val stateView = when (response) {
                     is ResultUseCase.Model<*> -> ViewStates.Sucesso(response.modelo as EventosModelResponse)
                     is ResultUseCase.Aviso -> ViewStates.Aviso(response.aviso)
-                    is ResultUseCase.Error -> ViewStates.Error(response.erro)
+                    is ResultUseCase.Error -> throw Exception(response.erro)
                 }
                 _detalhes.value = stateView
             }
-        } catch (exp: Exception) {
+        } catch (exp: Throwable) {
             _detalhes.value = ViewStates.Error(exp)
         }
     }

@@ -12,7 +12,6 @@ import com.example.eventosapp.data.remoto.repositorio.EventosRepositorioUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.lang.Exception
 
 class EventosViewModel() : ViewModel() {
 
@@ -37,7 +36,7 @@ class EventosViewModel() : ViewModel() {
                 }
                 _eventos.value = evento
             }
-        } catch (exp: Throwable) {
+        } catch (exp: Exception) {
             _eventos.value = ViewStates.Error(exp)
         }
     }

@@ -33,7 +33,7 @@ class CheckinEventosViewModel : ViewModel() {
                 }
                 _checkin.value = stateView
             }
-        } catch (exp: Exception) {
+        } catch (exp: Throwable) {
             _checkin.value = ViewStates.Error(exp)
         }
     }
