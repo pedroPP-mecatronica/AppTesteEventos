@@ -66,7 +66,7 @@ class DetalhesEventosFragment : Fragment() {
             when (state) {
                 is ViewStates.Sucesso<*> -> {
                     val detalhes = state.list as EventosModelResponse
-                    binding.tituloDetalhes.text = detalhes.titulo
+                    binding.tituloDetalhes.loadData(detalhes.titulo,null,null)
                     binding.descricaoDetalhesText.text = detalhes.descricao
                     Glide.with(this)
                         .load(detalhes.imagem)

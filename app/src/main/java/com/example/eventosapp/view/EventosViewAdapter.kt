@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eventosapp.R
 import com.example.eventosapp.data.remoto.modelos.EventosModelResponse
+import com.example.eventosapp.presentation.SafeClickListener
+import com.example.eventosapp.presentation.setSafeOnClickListener
 import kotlinx.android.synthetic.main.fragment_eventos.view.*
 
 
@@ -18,6 +20,7 @@ class EventosViewAdapter(val eventos: MutableList<EventosModelResponse>) :
         fun onItemClick(view: View, position: Int)
     }
 
+
     inner class ItensViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
 
@@ -25,7 +28,7 @@ class EventosViewAdapter(val eventos: MutableList<EventosModelResponse>) :
             with(evento) {
                 itemView.titulo.text = titulo
                 itemView.preco.text = " Preço: "+ preco.toString()+"R$"
-                itemView.setOnClickListener {
+                itemView.setSafeOnClickListener {
                     itemClickListener?.onItemClick(it,layoutPosition)
                 }
             }
