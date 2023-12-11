@@ -1,4 +1,4 @@
-package com.example.eventosapp.presentation.search
+package com.example.eventosapp.presentation.eventos
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.eventosapp.databinding.FragmentEventosListBinding
-import com.example.eventosapp.presentation.search.adapter.EventosViewAdapter
+import com.example.eventosapp.presentation.eventos.adapter.EventosViewAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 

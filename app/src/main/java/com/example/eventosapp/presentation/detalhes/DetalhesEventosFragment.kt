@@ -1,4 +1,4 @@
-package com.example.eventosapp.presentation.details
+package com.example.eventosapp.presentation.detalhes
 
 import android.os.Bundle
 import android.view.LayoutInflater

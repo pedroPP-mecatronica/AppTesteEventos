@@ -1,4 +1,4 @@
-package com.example.eventosapp.domain.usecases
+package com.example.eventosapp.presentation.checkin
 
 import com.example.eventosapp.domain.api.EventosRepositorio
 import com.example.eventosapp.domain.models.CheckinModelRequisicao

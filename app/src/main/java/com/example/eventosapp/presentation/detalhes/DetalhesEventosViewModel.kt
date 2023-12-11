@@ -1,11 +1,10 @@
-package com.example.eventosapp.presentation.details
+package com.example.eventosapp.presentation.detalhes
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.eventosapp.domain.models.EventosModelResposta
-import com.example.eventosapp.domain.usecases.BuscarDetalhesEventoUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

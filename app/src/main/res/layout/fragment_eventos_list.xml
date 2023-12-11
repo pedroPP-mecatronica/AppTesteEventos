@@ -8,5 +8,5 @@
     android:background="@color/green_light"
     android:layout_height="match_parent"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".presentation.search.EventosFragment"
+    tools:context=".presentation.eventos.EventosFragment"
     tools:listitem="@layout/fragment_eventos" />

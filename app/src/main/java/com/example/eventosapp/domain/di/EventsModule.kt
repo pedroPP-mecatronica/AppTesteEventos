@@ -4,12 +4,12 @@ import com.example.eventosapp.domain.api.EventosRepositorio
 import com.example.eventosapp.domain.api.EventosRepositorioImpl
 import com.example.eventosapp.domain.api.IEventosRepositorioServico
 import com.example.eventosapp.domain.api.RetrofitClient
-import com.example.eventosapp.domain.usecases.EventosCheckinUseCase
-import com.example.eventosapp.domain.usecases.BuscarDetalhesEventoUseCase
-import com.example.eventosapp.domain.usecases.BuscarEventosUseCase
+import com.example.eventosapp.presentation.checkin.EventosCheckinUseCase
+import com.example.eventosapp.presentation.detalhes.BuscarDetalhesEventoUseCase
+import com.example.eventosapp.presentation.eventos.BuscarEventosUseCase
 import com.example.eventosapp.presentation.checkin.CheckinEventosViewModel
-import com.example.eventosapp.presentation.details.DetalhesEventosViewModel
-import com.example.eventosapp.presentation.search.EventosViewModel
+import com.example.eventosapp.presentation.detalhes.DetalhesEventosViewModel
+import com.example.eventosapp.presentation.eventos.EventosViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.loadKoinModules
 import org.koin.dsl.module

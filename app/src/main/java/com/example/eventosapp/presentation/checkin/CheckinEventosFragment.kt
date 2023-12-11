@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.eventosapp.databinding.CheckinEventosFragmentBinding
-import com.example.eventosapp.presentation.details.DetalhesEventosFragmentArgs
+import com.example.eventosapp.presentation.detalhes.DetalhesEventosFragmentArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

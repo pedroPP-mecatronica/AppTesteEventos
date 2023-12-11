@@ -6,7 +6,7 @@
     app:startDestination="@id/list_eventos_fragment">
     <fragment
         android:id="@+id/list_eventos_fragment"
-        android:name="com.example.eventosapp.presentation.search.EventosFragment"
+        android:name="com.example.eventosapp.presentation.eventos.EventosFragment"
         android:label="fragment_blank"
         tools:layout="@layout/fragment_eventos_list">
         <action
@@ -16,7 +16,7 @@
 
     <fragment
         android:id="@+id/detalhesEventosFragment"
-        android:name="com.example.eventosapp.presentation.details.DetalhesEventosFragment"
+        android:name="com.example.eventosapp.presentation.detalhes.DetalhesEventosFragment"
         android:label="DetalhesEventosFragment"
         tools:layout="@layout/fragment_detalhes_eventos">
         <argument
