@@ -1,17 +1,16 @@
-package com.example.eventosapp.view
+package com.example.eventosapp.presentation.search.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eventosapp.R
-import com.example.eventosapp.data.remoto.modelos.EventosModelResponse
-import com.example.eventosapp.presentation.SafeClickListener
-import com.example.eventosapp.presentation.setSafeOnClickListener
-import kotlinx.android.synthetic.main.fragment_eventos.view.*
+import com.example.eventosapp.domain.extensions.setSafeOnClickListener
+import com.example.eventosapp.domain.models.EventosModelResposta
 
 
-class EventosViewAdapter(val eventos: MutableList<EventosModelResponse>) :
+class EventosViewAdapter(val eventos: MutableList<EventosModelResposta>) :
     RecyclerView.Adapter<EventosViewAdapter.ItensViewHolder>() {
 
     private var itemClickListener: ItemClickListener? = null
@@ -24,12 +23,14 @@ class EventosViewAdapter(val eventos: MutableList<EventosModelResponse>) :
     inner class ItensViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
 
-        fun bind(evento: EventosModelResponse) {
+        fun bind(evento: EventosModelResposta) {
             with(evento) {
-                itemView.titulo.text = titulo
-                itemView.preco.text = " Preço: "+ preco.toString()+"R$"
+                itemView.findViewById<TextView>(R.id.titulo).text = titulo
+
+                itemView.findViewById<TextView>(R.id.preco).text =
+                    " Preço: " + preco.toString() + "R$"
                 itemView.setSafeOnClickListener {
-                    itemClickListener?.onItemClick(it,layoutPosition)
+                    itemClickListener?.onItemClick(it, layoutPosition)
                 }
             }
         }
@@ -38,6 +39,7 @@ class EventosViewAdapter(val eventos: MutableList<EventosModelResponse>) :
     fun itemClickListener(ic: ItemClickListener) {
         this.itemClickListener = ic
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItensViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.fragment_eventos, parent, false)
@@ -52,7 +54,7 @@ class EventosViewAdapter(val eventos: MutableList<EventosModelResponse>) :
         return eventos.size
     }
 
-    fun addItem(eventos: List<EventosModelResponse>) {
+    fun addItem(eventos: List<EventosModelResposta>) {
         this.eventos.clear()
         this.eventos.addAll(eventos)
         notifyDataSetChanged()

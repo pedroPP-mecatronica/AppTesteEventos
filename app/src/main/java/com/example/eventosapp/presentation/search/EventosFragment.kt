@@ -1,4 +1,4 @@
-package com.example.eventosapp.view
+package com.example.eventosapp.presentation.search
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,13 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.eventosapp.data.remoto.modelos.EventosModelResponse
-import com.example.eventosapp.data.dominio.respostas.ViewStates
 import com.example.eventosapp.databinding.FragmentEventosListBinding
-import com.example.eventosapp.viewmodel.EventosViewModel
+import com.example.eventosapp.presentation.search.adapter.EventosViewAdapter
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class EventosFragment : Fragment() {
@@ -21,13 +19,13 @@ class EventosFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var adapter: EventosViewAdapter
-    private lateinit var eventosViewModel: EventosViewModel
+
+    private val viewModel: EventosViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        eventosViewModel = ViewModelProvider(this).get(EventosViewModel::class.java)
+    ): View {
         _binding = FragmentEventosListBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -50,7 +48,7 @@ class EventosFragment : Fragment() {
         adapter.itemClickListener(object : EventosViewAdapter.ItemClickListener {
             override fun onItemClick(view: View, position: Int) {
                 val modelo = adapter.eventos[position]
-                acessarDetalhes(modelo.id)
+                modelo.id?.let { acessarDetalhes(it) }
             }
         })
     }
@@ -62,22 +60,24 @@ class EventosFragment : Fragment() {
     }
 
 
-    fun observarEventos() {
-        eventosViewModel.buscarEventos()
-        eventosViewModel.eventos.observe(viewLifecycleOwner) { state ->
-            when (state) {
-                is ViewStates.Sucesso<*> -> {
-                    val eventos = state.list as List<EventosModelResponse>
-                    adapter.addItem(eventos)
+    private fun observarEventos() {
+        viewModel.buscarEventos()
+        viewModel.eventos.observe(viewLifecycleOwner) { acao ->
+            when (acao) {
+                is EventosViewModel.Acao.Sucesso -> {
+                    adapter.addItem(acao.eventos)
                 }
-                is ViewStates.Error -> {
-                    Toast.makeText(requireContext(), "Algo deu errado ao buscar eventos", Toast.LENGTH_LONG)
+
+                is EventosViewModel.Acao.Erro -> {
+                    Toast.makeText(
+                        requireContext(),
+                        "Algo deu errado ao buscar eventos",
+                        Toast.LENGTH_LONG
+                    )
                         .show()
                 }
-                is ViewStates.Aviso -> {
-                    Toast.makeText(requireContext(), state.aviso, Toast.LENGTH_SHORT).show()
-                }
-                is ViewStates.Carregando -> {
+
+                is EventosViewModel.Acao.Carregando -> {
                     Toast.makeText(requireContext(), "Carregando", Toast.LENGTH_SHORT).show()
                 }
             }

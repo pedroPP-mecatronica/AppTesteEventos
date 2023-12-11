@@ -1,4 +1,4 @@
-package com.example.eventosapp.presentation
+package com.example.eventosapp.domain.extensions
 
 import android.os.SystemClock
 import android.view.View

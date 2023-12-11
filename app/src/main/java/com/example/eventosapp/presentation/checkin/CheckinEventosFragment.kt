@@ -1,27 +1,22 @@
-package com.example.eventosapp.view
+package com.example.eventosapp.presentation.checkin
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.eventosapp.R
-import com.example.eventosapp.data.dominio.respostas.ViewStates
-import com.example.eventosapp.data.remoto.modelos.EventosModelResponse
 import com.example.eventosapp.databinding.CheckinEventosFragmentBinding
-import com.example.eventosapp.viewmodel.CheckinEventosViewModel
-import com.example.eventosapp.viewmodel.EventosViewModel
+import com.example.eventosapp.presentation.details.DetalhesEventosFragmentArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CheckinEventosFragment : BottomSheetDialogFragment() {
 
     private val args: DetalhesEventosFragmentArgs by navArgs()
 
-    private lateinit var eventosViewModel: CheckinEventosViewModel
+    private val viewModel: CheckinEventosViewModel by viewModel()
 
     private var _binding: CheckinEventosFragmentBinding? = null
     private val binding get() = _binding!!
@@ -30,7 +25,6 @@ class CheckinEventosFragment : BottomSheetDialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        eventosViewModel = ViewModelProvider(this).get(CheckinEventosViewModel::class.java)
         _binding = CheckinEventosFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -41,7 +35,7 @@ class CheckinEventosFragment : BottomSheetDialogFragment() {
         binding.confirmar.setOnClickListener {
             val nome = binding.nomeCheckin.text.toString()
             val email = binding.emailCheckin.text.toString()
-            eventosViewModel.fazerCheckin(args.idEvento, nome, email)
+            viewModel.fazerCheckin(args.idEvento, nome, email)
         }
 
         binding.cancelar.setOnClickListener {
@@ -50,20 +44,17 @@ class CheckinEventosFragment : BottomSheetDialogFragment() {
     }
 
     private fun observarCheckin() {
-        eventosViewModel.checkin.observe(viewLifecycleOwner) { state ->
-            when (state) {
-                is ViewStates.Sucesso<*> -> {
+        viewModel.checkin.observe(viewLifecycleOwner) { acao ->
+            when (acao) {
+                is CheckinEventosViewModel.Acao.Sucesso-> {
                         Toast.makeText(requireContext(),"Checkin feito",Toast.LENGTH_SHORT).show()
                         this.dismiss()
                 }
-                is ViewStates.Error -> {
-                    Toast.makeText(requireContext(), state.erro.toString(), Toast.LENGTH_SHORT)
+                is CheckinEventosViewModel.Acao.Erro -> {
+                    Toast.makeText(requireContext(), acao.erro.toString(), Toast.LENGTH_SHORT)
                         .show()
                 }
-                is ViewStates.Aviso -> {
-                    Toast.makeText(requireContext(), state.aviso, Toast.LENGTH_SHORT).show()
-                }
-                is ViewStates.Carregando -> {
+                is CheckinEventosViewModel.Acao.Carregando -> {
                     Toast.makeText(requireContext(), "Realizando Checkin", Toast.LENGTH_SHORT).show()
                 }
             }

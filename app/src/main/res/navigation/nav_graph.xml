@@ -6,7 +6,7 @@
     app:startDestination="@id/list_eventos_fragment">
     <fragment
         android:id="@+id/list_eventos_fragment"
-        android:name="com.example.eventosapp.view.EventosFragment"
+        android:name="com.example.eventosapp.presentation.search.EventosFragment"
         android:label="fragment_blank"
         tools:layout="@layout/fragment_eventos_list">
         <action
@@ -16,7 +16,7 @@
 
     <fragment
         android:id="@+id/detalhesEventosFragment"
-        android:name="com.example.eventosapp.view.DetalhesEventosFragment"
+        android:name="com.example.eventosapp.presentation.details.DetalhesEventosFragment"
         android:label="DetalhesEventosFragment"
         tools:layout="@layout/fragment_detalhes_eventos">
         <argument
@@ -29,7 +29,7 @@
 
     <dialog
         android:id="@+id/checkin_Eventos_Fragment"
-        android:name="com.example.eventosapp.view.CheckinEventosFragment"
+        android:name="com.example.eventosapp.presentation.checkin.CheckinEventosFragment"
         android:label="fragment_checkin__eventos_"
         tools:layout="@layout/checkin_eventos_fragment">
         <argument

@@ -1,4 +1,4 @@
-package com.example.eventosapp.data.remoto
+package com.example.eventosapp.domain.api
 
 import okhttp3.OkHttpClient.Builder
 import okhttp3.logging.HttpLoggingInterceptor
@@ -23,8 +23,9 @@ class RetrofitClient {
             return retrofit
         }
 
-        fun <S> createService(serviceClass: Class<S>): S {
-            return getRetrofitInstance().create(serviceClass)
+        @Synchronized
+        fun <T> getInstance(service: Class<T>): T {
+            return getRetrofitInstance().create(service)
         }
 
         private fun createOkHttpClient() = Builder()
